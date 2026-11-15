@@ -1,0 +1,9 @@
+{
+  "name": "Become Her",
+  "short_name": "Become Her",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5eee9",
+  "theme_color": "#f5eee9",
+  "icons": []
+}
