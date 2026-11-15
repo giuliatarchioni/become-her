@@ -38,130 +38,96 @@ textarea{min-height:105px;resize:vertical}.field{margin:10px 0}.field label{disp
 .mood button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;margin:3px}.mood button.selected{background:var(--soft);border-color:var(--accent)}
 .footer-note{text-align:center;color:var(--muted);font-size:11px;padding:20px 0}
 @media(min-width:650px){.app{padding-left:28px;padding-right:28px}.statgrid{grid-template-columns:repeat(4,1fr)}}
-
-/* Become Her — visual refresh */
-:root{
- --bg:#f7f3ef;--paper:#fffdfa;--ink:#514139;--muted:#9a8579;
- --accent:#b58f82;--line:#eee3dc;--soft:#f1e8e2;--green:#87927d;
- --shadow:0 10px 28px rgba(89,67,55,.055)
-}
-body{font-family:-apple-system,BlinkMacSystemFont,"Avenir Next",sans-serif;letter-spacing:.05px}
-.app{max-width:780px;padding-left:18px;padding-right:18px}
-header{padding:22px 2px 24px}
-.brand{font-size:30px;letter-spacing:-1.5px;color:#514139}
-.eyebrow{font-size:9px;letter-spacing:2.2px;font-weight:600}
-h1{font-size:32px;letter-spacing:-.8px;line-height:1.12}
-h2{font-size:23px;letter-spacing:-.35px}
-.card{border:1px solid rgba(224,210,201,.72);border-radius:22px;padding:19px;margin:14px 0;box-shadow:var(--shadow)}
-.hero{padding:25px 22px;background:linear-gradient(145deg,#fffdfa 0%,#f1e5df 100%);border-color:#eadbd3}
-.hero h1{margin-top:9px;margin-bottom:7px}
-.hero .sub{font-size:14px}
-.stat{background:#f8f2ee;border:1px solid #f0e7e1;border-radius:17px;padding:15px 13px}
-.stat strong{font-size:25px;color:#6a554b}
-.progress{height:7px;background:#e9ddd6}
-.progress span{background:linear-gradient(90deg,#b58f82,#c6a99c)}
-.nav{justify-content:flex-start;overflow-x:auto;gap:4px;padding:10px 9px calc(10px + env(safe-area-inset-bottom));scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav button{flex:0 0 66px;min-width:66px;font-size:10px;padding:2px 0}
-.nav button b{font-size:20px}
-.nav button.active{color:#765c50}
-.nav button.active b{background:#f1e7e1;border-radius:14px;padding:3px 12px}
-.btn{background:#665047;border-radius:14px;padding:12px 17px;font-weight:600}
-.btn.secondary{background:#f1e8e2;color:#665047}
-.iconbtn{border-radius:14px;background:#fffdfa}
-input[type=text],input[type=date],input[type=time],textarea,select{border-radius:14px;background:#fffdfa;border-color:#e9ddd6;padding:13px}
-.task{padding:13px 0}
-.task input{accent-color:#a98578}
-.item{padding:14px 0}
-.pill{background:#f1e8e2;color:#82695e}
-.challenge{background:#f8f2ee;border:1px solid #f0e7e1;border-radius:17px}
-.day{border-radius:11px;background:#f8f2ee}
-.day.today{background:#a98578}
-.mood button{border-radius:14px;padding:10px 12px}
-.mood button.selected{background:#f1e7e1;border-color:#b58f82}
-.footer-note{padding:24px 0 10px;letter-spacing:.6px}
-@media(max-width:390px){.app{padding-left:14px;padding-right:14px}.nav button{flex-basis:60px;min-width:60px}.card{padding:16px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><div class="brand">become her.</div><div class="eyebrow">IL TUO PERCORSO, UN GIORNO ALLA VOLTA</div></div><button class="iconbtn" onclick="show('profile')" aria-label="Impostazioni">♡</button></header>
+<header><div><div class="brand">become her.</div><div class="eyebrow">YOUR PERSONAL GLOW UP JOURNEY</div></div><button class="iconbtn" onclick="show('profile')" aria-label="Impostazioni">♡</button></header>
 
 <section id="home" class="section active">
  <div class="hero card">
-  <div class="eyebrow" id="todayLabel">IL TUO GIORNO</div><h1>Ciao, splendida.</h1><p class="sub">Piccoli passi, ogni giorno.</p>
-  <div class="row"><strong>I tuoi progressi di oggi</strong><strong id="percent">0%</strong></div><div class="progress"><span id="bar" style="width:0%"></span></div>
-  <div class="sub" id="count">0 of 0 attività completate</div>
+  <div class="eyebrow" id="todayLabel">YOUR DAY</div><h1>Hello, beautiful.</h1><p class="sub">A little progress every day.</p>
+  <div class="row"><strong>Today's progress</strong><strong id="percent">0%</strong></div><div class="progress"><span id="bar" style="width:0%"></span></div>
+  <div class="sub" id="count">0 of 0 tasks completed</div>
  </div>
  <div class="statgrid">
-  <div class="stat"><strong id="habitCount">0</strong><span class="sub">Abitudini oggi</span></div>
-  <div class="stat"><strong id="streakCount">0</strong><span class="sub">Giorni attivi</span></div>
-  <div class="stat"><strong id="challengeCount">0</strong><span class="sub">Challenge</span></div>
-  <div class="stat"><strong id="journalCount">0</strong><span class="sub">Diario</span></div>
+  <div class="stat"><strong id="habitCount">0</strong><span class="sub">Habits today</span></div>
+  <div class="stat"><strong id="streakCount">0</strong><span class="sub">Day streak</span></div>
+  <div class="stat"><strong id="challengeCount">0</strong><span class="sub">Challenges</span></div>
+  <div class="stat"><strong id="journalCount">0</strong><span class="sub">Journal entries</span></div>
  </div>
- <div class="card"><div class="row"><h2>La routine di oggi</h2><button class="btn secondary small" onclick="show('routines')">Gestisci</button></div><div id="todayTasks"></div></div>
- <div class="card"><div class="row"><h2>Un piccolo promemoria</h2><span>✧</span></div><p class="sub" style="margin:0">You don't have to become someone else. You're building habits that help you feel more like yourself.</p></div>
+ <div class="card"><div class="row"><h2>Today's routine</h2><button class="btn secondary small" onclick="show('routines')">Manage</button></div><div id="todayTasks"></div></div>
+ <div class="card"><div class="row"><h2>A gentle reminder</h2><span>✧</span></div><p class="sub" style="margin:0">You don't have to become someone else. You're building habits that help you feel more like yourself.</p></div>
 </section>
 
 <section id="routines" class="section">
- <h1>Le mie routine</h1><p class="sub">Crea piccoli rituali per dare intenzione alle tue giornate.</p>
- <div class="card"><h2>Aggiungi un'attività</h2><div class="field"><label>Nome attività</label><input id="routineName" type="text" placeholder="e.g. Morning skincare"></div><div class="field"><label>Categoria</label><select id="routineType"><option>Morning</option><option>Evening</option><option>Beauty & self-care</option><option>Study</option><option>Other</option></select></div><button class="btn" onclick="addCategoria()">Aggiungi</button></div>
- <div class="card"><h2>Tutte le attività</h2><div id="routineList"></div></div>
+ <h1>My routines</h1><p class="sub">Create little rituals that make your days feel intentional.</p>
+ <div class="card"><h2>Add a routine task</h2><div class="field"><label>Task name</label><input id="routineName" type="text" placeholder="e.g. Morning skincare"></div><div class="field"><label>Routine</label><select id="routineType"><option>Morning</option><option>Evening</option><option>Beauty & self-care</option><option>Study</option><option>Other</option></select></div><button class="btn" onclick="addRoutine()">Add task</button></div>
+ <div class="card"><h2>All routine tasks</h2><div id="routineList"></div></div>
 </section>
 
 <section id="habits" class="section">
- <h1>Le mie abitudini</h1><p class="sub">La costanza vale più della perfezione.</p>
- <div class="card"><h2>Le tue abitudini</h2><div class="formrow"><input id="habitName" type="text" placeholder="Aggiungi un'abitudine"><button class="btn" onclick="addHabit()">Add</button></div><div id="habitList" style="margin-top:12px"></div></div>
- <div class="card"><h2>Questa settimana</h2><div class="calendar" id="weekGrid"></div></div>
+ <h1>Habit tracker</h1><p class="sub">Consistency over perfection.</p>
+ <div class="card"><h2>Your habits</h2><div class="formrow"><input id="habitName" type="text" placeholder="Add a habit"><button class="btn" onclick="addHabit()">Add</button></div><div id="habitList" style="margin-top:12px"></div></div>
+ <div class="card"><h2>This week</h2><div class="calendar" id="weekGrid"></div></div>
 </section>
 
 <section id="challenges" class="section">
- <h1>Glow-up challenges</h1><p class="sub">Piccole sfide realistiche. I tuoi tempi, le tue regole.</p>
- <div class="card"><h2>Scegli la tua prossima sfida</h2><div id="challengeOptions"></div></div>
- <div class="card"><h2>Le tue challenge</h2><div id="activeChallenge"></div></div>
+ <h1>Glow-up challenges</h1><p class="sub">Small, realistic challenges. Your pace, your rules.</p>
+ <div class="card"><h2>Choose your next chapter</h2><div id="challengeOptions"></div></div>
+ <div class="card"><h2>My active challenges</h2><div id="activeChallenges"></div></div>
 </section>
 
 <section id="calendar" class="section">
- <h1>Calendario e progressi</h1><p class="sub">Un modo per osservare i tuoi progressi, senza giudicarti.</p>
+ <h1>Calendar & progress</h1><p class="sub">A snapshot of your consistency, not a score of your worth.</p>
  <div class="card"><div class="row"><button class="iconbtn" onclick="changeMonth(-1)">‹</button><h2 id="monthTitle" style="margin:0"></h2><button class="iconbtn" onclick="changeMonth(1)">›</button></div><div class="calendar" id="monthGrid" style="margin-top:15px"></div></div>
- <div class="card"><h2>I tuoi progressi</h2><div class="statgrid"><div class="stat"><strong id="totalAbitudini">0</strong><span class="sub">Abitudini create</span></div><div class="stat"><strong id="totalTasks">0</strong><span class="sub">Categoria tasks</span></div></div></div>
+ <div class="card"><h2>Your progress</h2><div class="statgrid"><div class="stat"><strong id="totalHabits">0</strong><span class="sub">Habits created</span></div><div class="stat"><strong id="totalTasks">0</strong><span class="sub">Routine tasks</span></div></div></div>
 </section>
 
 <section id="journal" class="section">
- <h1>Il mio diario</h1><p class="sub">Uno spazio tutto tuo per fare il punto della giornata.</p>
- <div class="card"><h2>Come ti senti oggi?</h2><div class="mood" id="moodChoices"><button onclick="pickMood(this,'😊')">😊</button><button onclick="pickMood(this,'😌')">😌</button><button onclick="pickMood(this,'😐')">😐</button><button onclick="pickMood(this,'🥺')">🥺</button><button onclick="pickMood(this,'😴')">😴</button></div><div class="field"><label>Cosa hai in mente?</label><textarea id="journalText" placeholder="Write without judging yourself..."></textarea></div><button class="btn" onclick="saveDiario()">Salva nel diario</button></div>
- <div class="card"><h2>I tuoi pensieri</h2><div id="journalList"></div></div>
+ <h1>My journal</h1><p class="sub">A quiet space to check in with yourself.</p>
+ <div class="card"><h2>How are you feeling?</h2><div class="mood" id="moodChoices"><button onclick="pickMood(this,'😊')">😊</button><button onclick="pickMood(this,'😌')">😌</button><button onclick="pickMood(this,'😐')">😐</button><button onclick="pickMood(this,'🥺')">🥺</button><button onclick="pickMood(this,'😴')">😴</button></div><div class="field"><label>What's on your mind?</label><textarea id="journalText" placeholder="Write without judging yourself..."></textarea></div><button class="btn" onclick="saveJournal()">Save entry</button></div>
+ <div class="card"><h2>Past entries</h2><div id="journalList"></div></div>
 </section>
 
 <section id="beauty" class="section">
- <h1>Beauty & self-care</h1><p class="sub">Piccoli gesti di cura, da inserire nella vita di tutti i giorni.</p>
- <div class="card"><h2>Pianifica un momento per te</h2><div class="field"><label>Attività</label><input id="beautyName" type="text" placeholder="e.g. Hair mask"></div><div class="field"><label>Frequenza</label><select id="beautyFrequenza"><option>Daily</option><option>Weekly</option><option>Monthly</option></select></div><button class="btn" onclick="addBeauty()">Aggiungi al planner</button></div>
- <div class="card"><h2>Il tuo beauty planner</h2><div id="beautyList"></div></div>
+ <h1>Beauty & self-care</h1><p class="sub">Care routines that feel good and fit real life.</p>
+  <div class="card"><h2>Add a self-care plan</h2>
+   <div class="field"><label>Activity</label><input id="beautyName" type="text" placeholder="e.g. Hair mask"></div>
+   <div class="field"><label>Category</label><select id="beautyCategory"><option>Skincare</option><option>Haircare</option><option>Body care</option><option>Nails</option><option>Brows & lashes</option><option>Appointment</option><option>Relax & wellness</option><option>Other</option></select></div>
+   <div class="field"><label>Frequency</label><select id="beautyWhen"><option>Daily</option><option>Weekly</option><option>Monthly</option><option>One-time</option></select></div>
+   <div class="field"><label>Date (optional)</label><input id="beautyDate" type="date"></div>
+   <div class="field"><label>Time (optional)</label><input id="beautyTime" type="time"></div>
+   <div class="field"><label>Notes (optional)</label><input id="beautyNote" type="text" placeholder="e.g. Use my nourishing mask"></div>
+   <button class="btn" onclick="addBeauty()">Add to planner</button>
+  </div>
+  <div class="card"><div class="row"><h2>My self-care planner</h2><span class="pill" id="beautyCount">0 plans</span></div><div id="beautyList"></div></div>
+ <div class="card"><h2>My self-care planner</h2><div id="beautyList"></div></div>
 </section>
 
 <section id="productivity" class="section">
- <h1>Studio e produttività</h1><p class="sub">Organizza i tuoi obiettivi, un passo alla volta.</p>
- <div class="card"><h2>Aggiungi un obiettivo</h2><div class="field"><label>Obiettivo o attività</label><input id="goalName" type="text" placeholder="e.g. Review philosophy notes"></div><div class="field"><label>Data obiettivo</label><input id="goalDate" type="date"></div><button class="btn" onclick="addGoal()">Aggiungi obiettivo</button></div>
- <div class="card"><h2>I tuoi obiettivi</h2><div id="goalList"></div></div>
+ <h1>Study & productivity</h1><p class="sub">Make space for what matters, one step at a time.</p>
+ <div class="card"><h2>Add a goal</h2><div class="field"><label>Goal or task</label><input id="goalName" type="text" placeholder="e.g. Review philosophy notes"></div><div class="field"><label>Target date</label><input id="goalDate" type="date"></div><button class="btn" onclick="addGoal()">Add goal</button></div>
+ <div class="card"><h2>My goals</h2><div id="goalList"></div></div>
 </section>
 
 <section id="profile" class="section">
- <h1>Il tuo spazio</h1><p class="sub">I tuoi dati restano salvati su questo dispositivo.</p>
- <div class="card"><h2>Backup e privacy</h2><p class="sub">Download a backup of your routines, habits, journal and goals. Keep it somewhere safe.</p><button class="btn" onclick="exportData()">Esporta i miei dati</button> <button class="btn secondary" onclick="document.getElementById('importFile').click()">Importa backup</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div>
- <div class="card"><h2>About Become Her</h2><p class="sub">A personal space for routines, self-care, study and steady progress. Not a competition, not a perfection project.</p><button class="btn secondary" onclick="if(confirm('Delete all saved Become Her data from this device?')){localStorage.removeItem(KEY);location.reload()}">Cancella tutti i dati</button></div>
+ <h1>Your space</h1><p class="sub">Your data stays in this browser on this device.</p>
+ <div class="card"><h2>Backup & privacy</h2><p class="sub">Download a backup of your routines, habits, journal and goals. Keep it somewhere safe.</p><button class="btn" onclick="exportData()">Export my data</button> <button class="btn secondary" onclick="document.getElementById('importFile').click()">Import backup</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div>
+ <div class="card"><h2>About Become Her</h2><p class="sub">A personal space for routines, self-care, study and steady progress. Not a competition, not a perfection project.</p><button class="btn secondary" onclick="if(confirm('Delete all saved Become Her data from this device?')){localStorage.removeItem(KEY);location.reload()}">Reset all data</button></div>
 </section>
-<div class="footer-note">creato per la tua evoluzione · become her.</div>
+<div class="footer-note">made for your becoming · become her.</div>
 </div>
 
 <nav class="nav">
 <button class="active" data-page="home" onclick="show('home')"><b>⌂</b>Home</button>
-<button data-page="routines" onclick="show('routines')"><b>☼</b>Categorias</button>
-<button data-page="habits" onclick="show('habits')"><b>♡</b>Abitudini</button>
-<button data-page="challenges" onclick="show('challenges')"><b>✧</b>Challenge</button>
-<button data-page="calendar" onclick="show('calendar')"><b>▦</b>Progressi</button>
-<button data-page="journal" onclick="show('journal')"><b>☷</b>Diario</button>
+<button data-page="routines" onclick="show('routines')"><b>☼</b>Routines</button>
+<button data-page="habits" onclick="show('habits')"><b>♡</b>Habits</button>
+<button data-page="challenges" onclick="show('challenges')"><b>✧</b>Challenges</button>
+<button data-page="calendar" onclick="show('calendar')"><b>▦</b>Progress</button>
+<button data-page="journal" onclick="show('journal')"><b>☷</b>Journal</button>
 <button data-page="beauty" onclick="show('beauty')"><b>❀</b>Beauty</button>
-<button data-page="productivity" onclick="show('productivity')"><b>◎</b>Obiettivi</button>
+<button data-page="productivity" onclick="show('productivity')"><b>◎</b>Goals</button>
 </nav>
 <script>
 const KEY='becomeHer_v1';
@@ -171,14 +137,14 @@ let mood='😌', monthCursor=new Date();
 function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function show(id){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));render();window.scrollTo(0,0)}
-function addCategoria(){let n=document.getElementById('routineName').value.trim();if(!n)return;data.routines.push({id:Date.now(),name:n,type:document.getElementById('routineType').value});document.getElementById('routineName').value='';save()}
+function addRoutine(){let n=document.getElementById('routineName').value.trim();if(!n)return;data.routines.push({id:Date.now(),name:n,type:document.getElementById('routineType').value});document.getElementById('routineName').value='';save()}
 function addHabit(){let n=document.getElementById('habitName').value.trim();if(!n)return;data.habits.push({id:Date.now(),name:n});document.getElementById('habitName').value='';save()}
 function toggleHabit(id){let k=today();data.habitChecks[k]??=[];data.habitChecks[k].includes(id)?data.habitChecks[k]=data.habitChecks[k].filter(x=>x!==id):data.habitChecks[k].push(id);save()}
 function addChallenge(name,days){if(data.challenges.some(c=>c.name===name&&!c.done))return;data.challenges.push({id:Date.now(),name,days,start:today(),done:false});save()}
 function finishChallenge(id){let c=data.challenges.find(x=>x.id===id);if(c)c.done=true;save()}
 function pickMood(el,m){mood=m;document.querySelectorAll('.mood button').forEach(b=>b.classList.remove('selected'));el.classList.add('selected')}
-function saveDiario(){let t=document.getElementById('journalText').value.trim();if(!t)return;data.journal.unshift({date:today(),mood,text:t});document.getElementById('journalText').value='';save()}
-function addBeauty(){let n=document.getElementById('beautyName').value.trim();if(!n)return;data.beauty.push({id:Date.now(),name:n,when:document.getElementById('beautyFrequenza').value,done:false});document.getElementById('beautyName').value='';save()}
+function saveJournal(){let t=document.getElementById('journalText').value.trim();if(!t)return;data.journal.unshift({date:today(),mood,text:t});document.getElementById('journalText').value='';save()}
+function addBeauty(){let n=document.getElementById('beautyName').value.trim();if(!n)return;data.beauty.push({id:Date.now(),name:n,category:document.getElementById('beautyCategory').value,when:document.getElementById('beautyWhen').value,date:document.getElementById('beautyDate').value,time:document.getElementById('beautyTime').value,note:document.getElementById('beautyNote').value.trim(),done:false});['beautyName','beautyDate','beautyTime','beautyNote'].forEach(id=>document.getElementById(id).value='');save()}
 function toggleBeauty(id){let x=data.beauty.find(a=>a.id===id);x.done=!x.done;save()}
 function addGoal(){let n=document.getElementById('goalName').value.trim();if(!n)return;data.goals.push({id:Date.now(),name:n,date:document.getElementById('goalDate').value,done:false});document.getElementById('goalName').value='';save()}
 function toggleGoal(id){let x=data.goals.find(a=>a.id===id);x.done=!x.done;save()}
@@ -188,24 +154,25 @@ function render(){
  const total=data.routines.length+data.habits.length, completed=data.habits.filter(h=>(data.habitChecks[today()]||[]).includes(h.id)).length;
  const routineDone=data.routines.filter(r=>(data.habitChecks[today()]||[]).includes('r'+r.id)).length;
  const done=completed+routineDone, pct=total?Math.round(done/total*100):0;
- document.getElementById('todayLabel').textContent=new Date().toLocaleDateString('it-IT',{weekday:'long',month:'long',day:'numeric'}).toUpperCase();
- document.getElementById('percent').textContent=pct+'%';document.getElementById('bar').style.width=pct+'%';document.getElementById('count').textContent=done+' of '+total+' attività completate';
+ document.getElementById('todayLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}).toUpperCase();
+ document.getElementById('percent').textContent=pct+'%';document.getElementById('bar').style.width=pct+'%';document.getElementById('count').textContent=done+' of '+total+' tasks completed';
  document.getElementById('habitCount').textContent=completed+'/'+data.habits.length;document.getElementById('streakCount').textContent=Object.keys(data.habitChecks).filter(k=>data.habitChecks[k].length).length;
  document.getElementById('challengeCount').textContent=data.challenges.filter(c=>!c.done).length;document.getElementById('journalCount').textContent=data.journal.length;
- document.getElementById('todayTasks').innerHTML=data.routines.length?data.routines.map(r=>{let checked=(data.habitChecks[today()]||[]).includes('r'+r.id);return `<div class="task ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleCategoria(${r.id})"><div><div class="taskname">${esc(r.name)}</div><small class="sub">${esc(r.type)}</small></div></div>`}).join(''):'<div class="empty">Add your first routine to get started.</div>';
+ document.getElementById('todayTasks').innerHTML=data.routines.length?data.routines.map(r=>{let checked=(data.habitChecks[today()]||[]).includes('r'+r.id);return `<div class="task ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleRoutine(${r.id})"><div><div class="taskname">${esc(r.name)}</div><small class="sub">${esc(r.type)}</small></div></div>`}).join(''):'<div class="empty">Add your first routine to get started.</div>';
  document.getElementById('routineList').innerHTML=data.routines.length?data.routines.map(r=>`<div class="item row"><div><strong>${esc(r.name)}</strong><br><small>${esc(r.type)}</small></div><button class="iconbtn" onclick="del('routines',${r.id})">×</button></div>`).join(''):'<div class="empty">No routine tasks yet.</div>';
- document.getElementById('habitList').innerHTML=data.habits.length?data.habits.map(h=>`<div class="task ${(data.habitChecks[today()]||[]).includes(h.id)?'done':''}"><input type="checkbox" ${(data.habitChecks[today()]||[]).includes(h.id)?'checked':''} onchange="toggleHabit(${h.id})"><div style="flex:1" class="taskname">${esc(h.name)}</div><button class="iconbtn" style="width:30px;height:30px" onclick="del('habits',${h.id})">×</button></div>`).join(''):'<div class="empty">Aggiungi un'abitudine you want to build.</div>';
+ document.getElementById('habitList').innerHTML=data.habits.length?data.habits.map(h=>`<div class="task ${(data.habitChecks[today()]||[]).includes(h.id)?'done':''}"><input type="checkbox" ${(data.habitChecks[today()]||[]).includes(h.id)?'checked':''} onchange="toggleHabit(${h.id})"><div style="flex:1" class="taskname">${esc(h.name)}</div><button class="iconbtn" style="width:30px;height:30px" onclick="del('habits',${h.id})">×</button></div>`).join(''):'<div class="empty">Add a habit you want to build.</div>';
  document.getElementById('weekGrid').innerHTML=['M','T','W','T','F','S','S'].map((d,i)=>`<div><div class="dayname">${d}</div><div class="day ${new Date().getDay()===(i+1)%7?'today':''}">${new Date(Date.now()-((new Date().getDay()+6)%7-i)*86400000).getDate()}</div></div>`).join('');
  const presets=[['7 days of self-care',7],['14 days of mindful routines',14],['30 days of consistency',30],['7 days of study focus',7]];
  document.getElementById('challengeOptions').innerHTML=presets.map(([n,d])=>`<div class="challenge row"><div><strong>${n}</strong><br><small class="sub">${d} days · at your own pace</small></div><button class="btn small" onclick="addChallenge('${n}',${d})">Start</button></div>`).join('');
- document.getElementById('activeChallenge').innerHTML=data.challenges.length?data.challenges.map(c=>`<div class="item row"><div><strong>${esc(c.name)}</strong><br><small>${c.days} days · started ${c.start} ${c.done?'· completed':''}</small></div>${c.done?'✓':`<button class="btn secondary small" onclick="finishChallenge(${c.id})">Complete</button>`}</div>`).join(''):'<div class="empty">Your active challenges will appear here.</div>';
- document.getElementById('totalAbitudini').textContent=data.habits.length;document.getElementById('totalTasks').textContent=data.routines.length;
+ document.getElementById('activeChallenges').innerHTML=data.challenges.length?data.challenges.map(c=>`<div class="item row"><div><strong>${esc(c.name)}</strong><br><small>${c.days} days · started ${c.start} ${c.done?'· completed':''}</small></div>${c.done?'✓':`<button class="btn secondary small" onclick="finishChallenge(${c.id})">Complete</button>`}</div>`).join(''):'<div class="empty">Your active challenges will appear here.</div>';
+ document.getElementById('totalHabits').textContent=data.habits.length;document.getElementById('totalTasks').textContent=data.routines.length;
  renderMonth();
  document.getElementById('journalList').innerHTML=data.journal.length?data.journal.map(j=>`<div class="item"><div class="row"><strong>${j.mood} ${j.date}</strong></div><p style="margin:8px 0 0;white-space:pre-wrap">${esc(j.text)}</p></div>`).join(''):'<div class="empty">Your entries will appear here.</div>';
- document.getElementById('beautyList').innerHTML=data.beauty.length?data.beauty.map(x=>`<div class="task ${x.done?'done':''}"><input type="checkbox" ${x.done?'checked':''} onchange="toggleBeauty(${x.id})"><div style="flex:1"><div class="taskname">${esc(x.name)}</div><small class="sub">${esc(x.when)}</small></div><button class="iconbtn" style="width:30px;height:30px" onclick="del('beauty',${x.id})">×</button></div>`).join(''):'<div class="empty">Plan your next self-care ritual.</div>';
- document.getElementById('goalList').innerHTML=data.goals.length?data.goals.map(x=>`<div class="task ${x.done?'done':''}"><input type="checkbox" ${x.done?'checked':''} onchange="toggleGoal(${x.id})"><div style="flex:1"><div class="taskname">${esc(x.name)}</div><small class="sub">${x.date||'No deadline'}</small></div><button class="iconbtn" style="width:30px;height:30px" onclick="del('goals',${x.id})">×</button></div>`).join(''):'<div class="empty">Aggiungi un obiettivo, big or small.</div>';
+  document.getElementById('beautyCount').textContent=data.beauty.length+' plans';
+  document.getElementById('beautyList').innerHTML=data.beauty.length?data.beauty.map(x=>`<div class="task ${x.done?'done':''}" style="align-items:flex-start"><input type="checkbox" ${x.done?'checked':''} onchange="toggleBeauty(${x.id})"><div style="flex:1"><div class="taskname"><strong>${esc(x.name)}</strong></div><small class="sub">${esc(x.category||'Self-care')} · ${esc(x.when||'')}</small>${x.date?`<div class="sub" style="margin-top:4px">${esc(x.date)}${x.time?' · '+esc(x.time):''}</div>`:''}${x.note?`<div class="sub" style="margin-top:4px">${esc(x.note)}</div>`:''}</div><button class="iconbtn" style="width:30px;height:30px" onclick="del('beauty',${x.id})">×</button></div>`).join(''):'<div class="empty">Plan your next self-care ritual.</div>';
+ document.getElementById('goalList').innerHTML=data.goals.length?data.goals.map(x=>`<div class="task ${x.done?'done':''}"><input type="checkbox" ${x.done?'checked':''} onchange="toggleGoal(${x.id})"><div style="flex:1"><div class="taskname">${esc(x.name)}</div><small class="sub">${x.date||'No deadline'}</small></div><button class="iconbtn" style="width:30px;height:30px" onclick="del('goals',${x.id})">×</button></div>`).join(''):'<div class="empty">Add a goal, big or small.</div>';
 }
-function toggleCategoria(id){let k=today();data.habitChecks[k]??=[];let v='r'+id;data.habitChecks[k].includes(v)?data.habitChecks[k]=data.habitChecks[k].filter(x=>x!==v):data.habitChecks[k].push(v);save()}
+function toggleRoutine(id){let k=today();data.habitChecks[k]??=[];let v='r'+id;data.habitChecks[k].includes(v)?data.habitChecks[k]=data.habitChecks[k].filter(x=>x!==v):data.habitChecks[k].push(v);save()}
 function renderMonth(){let y=monthCursor.getFullYear(),m=monthCursor.getMonth(),first=new Date(y,m,1).getDay(),offset=(first+6)%7,days=new Date(y,m+1,0).getDate();document.getElementById('monthTitle').textContent=monthCursor.toLocaleDateString('it-IT',{month:'long',year:'numeric'});let a=['L','M','M','G','V','S','D'].map(x=>`<div class="dayname">${x}</div>`);for(let i=0;i<offset;i++)a.push('<div></div>');for(let d=1;d<=days;d++){let t=new Date(y,m,d).toISOString().slice(0,10);a.push(`<div class="day ${t===today()?'today':''}" title="${t}">${d}</div>`)}document.getElementById('monthGrid').innerHTML=a.join('')}
 function changeMonth(n){monthCursor.setMonth(monthCursor.getMonth()+n);renderMonth()}
 function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='become-her-backup.json';a.click();URL.revokeObjectURL(a.href)}
