@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f0e9">
+<title>Become Her</title>
+<style>
+:root{
+ --bg:#f5f0e9;--paper:#fffdf9;--ink:#40382f;--muted:#94877b;
+ --accent:#a78d79;--rose:#ddc5bd;--line:#e9e0d7;--soft:#eee6dd;
+ --green:#87927c;--shadow:0 8px 25px #65503b0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{max-width:1100px;margin:auto;padding:23px 20px 12px;display:flex;justify-content:space-between;align-items:center}
+.brand{font:29px Georgia,serif;letter-spacing:.5px}
+.tagline{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:4px}
+#date{font-size:12px;color:var(--muted);text-align:right}
+main{max-width:1100px;margin:auto;padding:10px 17px 110px}
+.page{display:none}.page.active{display:block}
+h1,h2,h3{font-family:Georgia,serif;font-weight:normal}
+h1{font-size:31px;margin:12px 0 6px}
+h2{font-size:22px;margin:0 0 13px}
+h3{font-size:17px;margin:0 0 9px}
+p{line-height:1.5}
+.small{font-size:12px;color:var(--muted)}
+.muted{color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:18px;margin:13px 0;box-shadow:var(--shadow)}
+.hero{background:#e9ddd2;border:0;padding:23px}
+.hero h1{font-size:34px}
+.eyebrow{font-size:10px;letter-spacing:1.7px;color:var(--muted);text-transform:uppercase}
+button.primary,.primary{background:var(--ink);color:white;border:0;border-radius:25px;padding:12px 17px}
+button.secondary{background:var(--soft);color:var(--ink);border:0;border-radius:24px;padding:10px 14px}
+button.textbtn{background:none;border:0;color:var(--muted);padding:8px}
+button.danger{color:#9d625a;background:#f5e9e5;border:0;border-radius:20px;padding:8px 12px}
+button:disabled{opacity:.45}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;color:var(--ink);margin:6px 0 13px}
+textarea{min-height:90px;resize:vertical}
+label{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:#f6f1eb;padding:14px;border-radius:15px}
+.stat strong{font:24px Georgia,serif;display:block;margin-top:5px}
+.progress{height:7px;background:var(--soft);border-radius:10px;overflow:hidden;margin:9px 0}
+.progress span{display:block;height:100%;background:var(--accent);border-radius:10px}
+.item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .itemname{flex:1;font-size:14px}
+.item.done .itemname{text-decoration:line-through;color:var(--muted)}
+.check{width:19px;height:19px;accent-color:var(--accent);margin:0}
+.pill{display:inline-block;background:var(--soft);padding:6px 10px;border-radius:20px;font-size:11px;color:var(--muted);margin:2px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;overflow-x:auto;justify-content:flex-start;gap:2px;background:#fffdf9f5;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}
+nav button{flex:1;min-width:48px;border:0;background:transparent;color:var(--muted);font-size:10px;padding:8px 3px}
+nav button span{display:block;font-size:17px;margin-bottom:4px}
+nav button.active{color:var(--ink);font-weight:bold}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sectionhead button{white-space:nowrap}
+.empty{padding:17px;text-align:center;color:var(--muted);font-size:13px}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+#onboarding{position:fixed;inset:0;background:var(--bg);z-index:20;overflow:auto;padding:25px 18px}
+.onboardbox{max-width:570px;margin:25px auto;background:var(--paper);padding:25px;border:1px solid var(--line);border-radius:23px}
+.step{display:none}.step.active{display:block}
+.choices{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0 16px}
+.choice{border:1px solid var(--line);background:white;color:var(--ink);border-radius:22px;padding:10px 13px;font-size:13px}
+.choice.selected{background:#e9ddd2;border-color:var(--accent)}
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:11px 17px;border-radius:22px;font-size:12px;display:none;z-index:30}
+@media(min-width:760px){
+ nav{position:sticky;top:0;bottom:auto;max-width:1100px;margin:auto;border:0;border-radius:18px;justify-content:center}
+ nav button{flex:0 1 110px;font-size:12px}
+ main{padding-top:20px}
+}
+@media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.card{padding:15px}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+ <div><div class="brand">become her.</div><div class="tagline">YOUR PERSONAL GROWTH SPACE</div></div>
+ <div id="date"></div>
+</header>
+
+<nav id="nav">
+ <button class="active" data-page="home"><span>⌂</span>Oggi</button>
+ <button data-page="routines"><span>☼</span>Routine</button>
+ <button data-page="habits"><span>✓</span>Habits</button>
+ <button data-page="goals"><span>◇</span>Obiettivi</button>
+ <button data-page="beauty"><span>♡</span>Beauty</button>
+ <button data-page="study"><span>▤</span>Studio</button>
+ <button data-page="calendar"><span>▦</span>Calendario</button>
+ <button data-page="more"><span>•••</span>Altro</button>
+</nav>
+
+<main>
+<section id="home" class="page active">
+ <div class="card hero">
+  <div class="eyebrow">Il tuo spazio, il tuo percorso</div>
+  <h1 id="greeting">Benvenuta.</h1>
+  <p id="dailyQuote">Piccoli gesti, grandi cambiamenti.</p>
+  <span class="pill" id="todayLabel"></span>
+ </div>
+ <div class="grid">
+  <div class="stat"><span class="small">Completato oggi</span><strong id="percent">0%</strong><div class="progress"><span id="progressbar"></span></div></div>
+  <div class="stat"><span class="small">Attività di oggi</span><strong id="count">0</strong><span class="small">programmate</span></div>
+ </div>
+ <div class="card">
+  <div class="sectionhead"><h2>Il tuo focus</h2><button class="textbtn" onclick="suggestFocus()">Suggerimento ↗</button></div>
+  <p id="focusText">Scegli una piccola priorità per oggi.</p>
+ </div>
+ <div class="card">
+  <div class="sectionhead"><h2>La tua giornata</h2><button class="secondary" onclick="addTask()">+ Aggiungi</button></div>
+  <div id="todayTasks"></div>
+ </div>
+ <div class="card">
+  <h2>Un pensiero per te</h2><p id="homeSuggestion" class="small">La costanza non significa fare tutto: significa tornare a ciò che conta.</p>
+ </div>
+</section>
+
+<section id="routines" class="page">
+ <h1>Le tue routine</h1><p class="small">Organizzate intorno ai tuoi orari. Modificale quando la tua giornata cambia.</p>
+ <div class="card"><div class="sectionhead"><h2>Mattina</h2><button class="secondary" onclick="addRoutine('morning')">+ Attività</button></div><div id="morningList"></div></div>
+ <div class="card"><div class="sectionhead"><h2>Sera</h2><button class="secondary" onclick="addRoutine('evening')">+ Attività</button></div><div id="eveningList"></div></div>
+ <div class="card"><h2>Disponibilità</h2><p class="small">Puoi modificare il tempo che vuoi dedicare alle tue routine nelle impostazioni.</p><div id="routineSettings"></div></div>
+</section>
+
+<section id="habits" class="page">
+ <h1>Habit tracker</h1><p class="small">Le abitudini si costruiscono con continuità, non con perfezione.</p>
+ <div class="card"><div class="sectionhead"><h2>Le mie abitudini</h2><button class="secondary" onclick="addHabit()">+ Nuova</button></div><div id="habitList"></div></div>
+</section>
+
+<section id="goals" class="page">
+ <h1>I tuoi obiettivi</h1><p class="small">Trasforma un obiettivo grande in traguardi raggiungibili.</p>
+ <div class="card"><div class="sectionhead"><h2>I miei obiettivi</h2><button class="secondary" onclick="addGoal()">+ Nuovo</button></div><div id="goalList"></div></div>
+</section>
+
+<section id="beauty" class="page">
+ <h1>Beauty & self-care</h1><p class="small">La tua agenda personale di cura e benessere.</p>
+ <div class="card"><div class="sectionhead"><h2>Planner</h2><button class="secondary" onclick="addBeauty()">+ Attività</button></div><div id="beautyList"></div></div>
+ <div class="card"><div class="sectionhead"><h2>Archivio prodotti</h2><button class="secondary" onclick="addProduct()">+ Prodotto</button></div><div id="productList"></div></div>
+</section>
+
+<section id="study" class="page">
+ <h1>Studio & productivity</h1><p class="small">Compiti, verifiche e sessioni organizzati in un unico spazio.</p>
+ <div class="card"><div class="sectionhead"><h2>Attività di studio</h2><button class="secondary" onclick="addStudy()">+ Aggiungi</button></div><div id="studyList"></div></div>
+ <div class="card"><h2>Timer di concentrazione</h2><div class="stat"><strong id="timerDisplay">25:00</strong><span class="small">Sessione di studio</span></div><div class="row"><button class="primary" onclick="startTimer()">Avvia</button><button class="secondary" onclick="pauseTimer()">Pausa</button><button class="secondary" onclick="resetTimer()">Reset</button></div></div>
+</section>
+
+<section id="challenges" class="page">
+ <h1>Glow-up challenges</h1><p class="small">Sfide personali, flessibili e senza classifiche.</p>
+ <div class="card"><div class="sectionhead"><h2>Le tue sfide</h2><button class="secondary" onclick="addChallenge()">+ Nuova</button></div><div id="challengeList"></div></div>
+ <div class="card"><h2>Idea per te</h2><p id="challengeIdea" class="small">Una settimana di piccoli momenti dedicati a te: scegli un'attività realistica al giorno.</p><button class="secondary" onclick="newChallengeIdea()">Un'altra idea</button></div>
+</section>
+
+<section id="calendar" class="page">
+ <h1>Calendario</h1><div class="card"><label>Seleziona una data</label><input type="date" id="calendarDate"><div id="calendarItems"></div><hr><button class="secondary" onclick="addTaskForDate()">+ Aggiungi a questa data</button></div>
+</section>
+
+<section id="journal" class="page">
+ <h1>Diario & mood</h1>
+ <div class="card"><label>Come ti senti?</label><select id="mood"><option value="🌸">🌸 Serena</option><option value="☀️">☀️ Felice</option><option value="☁️">☁️ Così così</option><option value="🌧️">🌧️ Giù di tono</option><option value="🫧">🫧 Stressata</option><option value="🌙">🌙 Stanca</option></select>
+ <label>La tua riflessione</label><textarea id="journalText" placeholder="Cosa ti passa per la mente oggi?"></textarea><button class="primary" onclick="saveJournal()">Salva nel diario</button></div>
+ <div class="card"><h2>Le tue pagine</h2><div id="journalList"></div></div>
+</section>
+
+<section id="weekly" class="page">
+ <h1>Weekly Reset</h1><p class="small">Fai spazio, guarda indietro e prepara la settimana che arriva.</p>
+ <div class="card"><label>Di cosa sei soddisfatta?</label><textarea id="weekWin"></textarea><label>Cosa vorresti rendere più semplice?</label><textarea id="weekImprove"></textarea><label>Le tue tre priorità</label><textarea id="weekPriorities"></textarea><button class="primary" onclick="saveWeekly()">Salva il Weekly Reset</button></div>
+ <div class="card"><h2>Reset checklist</h2><div id="resetList"></div></div>
+</section>
+
+<section id="settings" class="page">
+ <h1>Impostazioni</h1>
+ <div class="card"><h2>Il tuo profilo</h2><label>Come vuoi essere chiamata?</label><input id="profileName"><label>Tempo disponibile al mattino (minuti)</label><input id="morningTime" type="number" min="0"><label>Tempo disponibile la sera (minuti)</label><input id="eveningTime" type="number" min="0"><button class="primary" onclick="saveSettings()">Salva modifiche</button></div>
+ <div class="card"><h2>Preferenze</h2><p class="small">Le routine sono flessibili. I suggerimenti non modificano i tuoi programmi senza il tuo consenso.</p><p><span class="pill">Flexible routines</span><span class="pill">Suggest mode</span><span class="pill">Italiano</span></p></div>
+ <div class="card"><h2>I tuoi dati</h2><button class="secondary" onclick="exportData()">Esporta backup</button><label style="display:block;margin-top:12px">Importa un backup JSON</label><input type="file" id="importFile" accept=".json,application/json" onchange="importData(event)"></div>
+</section>
+
+<section id="more" class="page">
+ <h1>Il tuo spazio</h1>
+ <div class="card"><button class="secondary" onclick="go('challenges')">Glow-up challenges ↗</button></div>
+ <div class="card"><button class="secondary" onclick="go('journal')">Diario & mood ↗</button></div>
+ <div class="card"><button class="secondary" onclick="go('weekly')">Weekly Reset ↗</button></div>
+ <div class="card"><button class="secondary" onclick="go('settings')">Impostazioni ↗</button></div>
+</section>
+</main>
+
+<div id="onboarding" style="display:none">
+ <div class="onboardbox">
+  <div class="brand">become her.</div><p class="eyebrow">Let's get to know you</p>
+  <div class="progress"><span id="onProgress" style="width:14%"></span></div>
+  <div class="step active">
+   <h1>Partiamo da te.</h1><p class="small">Come vuoi che ti chiami l'app?</p><label>Il tuo nome</label><input id="obName" placeholder="Il tuo nome"><label>Qual è la tua fase di vita?</label><select id="obLife"><option>Studio</option><option>Lavoro</option><option>Studio e lavoro</option><option>Altro</option></select>
+  </div>
+  <div class="step">
+   <h1>Le tue priorità.</h1><p class="small">Scegli ciò su cui vuoi concentrarti. Puoi selezionare più risposte.</p>
+   <div class="choices" data-group="priorities">
+    <button class="choice">Benessere</button><button class="choice">Studio</button><button class="choice">Produttività</button><button class="choice">Beauty & self-care</button><button class="choice">Organizzazione</button><button class="choice">Abitudini</button><button class="choice">Crescita personale</button><button class="choice">Equilibrio</button>
+   </div>
+  </div>
+  <div class="step">
+   <h1>La tua quotidianità.</h1><p class="small">Queste risposte servono a costruire programmi realistici.</p>
+   <label>A che ora inizi solitamente la giornata?</label><input id="obWake" type="time" value="07:00">
+   <label>A che ora vai a dormire?</label><input id="obSleep" type="time" value="23:00">
+   <label>Quanto tempo vuoi dedicare alle routine?</label><select id="obTime"><option value="15">15 minuti</option><option value="30" selected>30 minuti</option><option value="45">45 minuti</option><option value="60">60 minuti</option><option value="90">90 minuti</option></select>
+   <label>Come preferisci organizzarti?</label><select id="obStructure"><option>Flessibile</option><option>Abbastanza strutturata</option><option>Molto strutturata</option></select>
+  </div>
+  <div class="step">
+   <h1>Cosa vuoi migliorare?</h1><p class="small">Scegli le difficoltà che vorresti gestire meglio.</p>
+   <div class="choices" data-group="difficulties">
+    <button class="choice">Costanza</button><button class="choice">Procrastinazione</button><button class="choice">Organizzazione</button><button class="choice">Concentrazione</button><button class="choice">Gestione del tempo</button><button class="choice">Motivazione</button><button class="choice">Equilibrio tra impegni</button><button class="choice">Routine irregolari</button>
+   </div>
+  </div>
+  <div class="step">
+   <h1>Studio & produttività.</h1><p class="small">Puoi personalizzare tutto anche in seguito.</p>
+   <label>Materie o aree di studio (separate da virgola)</label><input id="obSubjects" placeholder="Matematica, Inglese, Storia...">
+   <label>Tempo medio disponibile al giorno</label><select id="obStudy"><option>30 minuti</option><option>1 ora</option><option>2 ore</option><option>3 ore o più</option><option>Variabile</option></select>
+   <label>Quando preferisci concentrarti?</label><select id="obStudyTime"><option>Pomeriggio</option><option>Mattina</option><option>Sera</option><option>Dipende dal giorno</option></select>
+  </div>
+  <div class="step">
+   <h1>Beauty & self-care.</h1><p class="small">Quali aree vuoi inserire nel tuo planner?</p>
+   <div class="choices" data-group="beauty">
+    <button class="choice">Skincare</button><button class="choice">Capelli</button><button class="choice">Corpo</button><button class="choice">Unghie</button><button class="choice">Makeup</button><button class="choice">Appuntamenti</button><button class="choice">Relax</button><button class="choice">Prodotti</button>
+   </div>
+  </div>
+  <div class="step">
+   <h1>Il tuo modo di crescere.</h1><p class="small">Become Her deve adattarsi a te, non il contrario.</p>
+   <label>Come vuoi ricevere i suggerimenti?</label><select id="obSuggest"><option value="suggest">Suggest: proponi e lasciami decidere</option><option value="minimal">Solo quando li chiedo</option></select>
+   <label>Se salti un'attività, cosa preferisci?</label><select id="obMiss"><option value="both">Riprogramma e proponi un'alternativa</option><option value="reschedule">Riprogramma soltanto</option><option value="alternative">Proponi un'alternativa soltanto</option></select>
+   <label>Quanto vuoi che l'app sia coinvolgente?</label><select id="obTone"><option>Equilibrata e incoraggiante</option><option>Essenziale e minimal</option><option>Motivante e strutturata</option></select>
+  </div>
+  <div class="row" style="margin-top:22px"><button class="secondary" id="obBack" onclick="obMove(-1)">Indietro</button><button class="primary" id="obNext" onclick="obMove(1)">Continua</button></div>
+  <p class="small" id="obCount">1 di 7</p>
+ </div>
+</div>
+<div id="toast"></div>
+<script>
+const KEY='becomeHer_final_v1',OLD='becomeHer_v1';
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const blank=()=>({name:'',onboarded:false,profile:{},tasks:[],morning:[],evening:[],habits:[],goals:[],beauty:[],products:[],study:[],challenges:[],journal:[],weekly:[],resetChecks:[]});
+function load(){
+ try{
+  let s=localStorage.getItem(KEY);
+  if(s)return {...blank(),...JSON.parse(s)};
+  let old=localStorage.getItem(OLD);
+  if(old){let parsed=JSON.parse(old);return {...blank(),...parsed};}
+ }catch(e){}
+ return blank();
+}
+let data=load(),obStep=0,timer=null,seconds=1500;
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));render();}
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
+function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
+$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page)});
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function choices(group){return [...document.querySelectorAll('[data-group="'+group+'"] .choice.selected')].map(x=>x.textContent)}
+document.querySelectorAll('.choices').forEach(g=>g.addEventListener('click',e=>{let b=e.target.closest('.choice');if(b)b.classList.toggle('selected')}));
+function obMove(n){
+ if(n===1&&obStep===0&&!$('obName').value.trim()){toast('Inserisci il tuo nome per continuare');return}
+ obStep=Math.max(0,Math.min(6,obStep+n));
+ document.querySelectorAll('.step').forEach((x,i)=>x.classList.toggle('active',i===obStep));
+ $('obBack').style.visibility=obStep===0?'hidden':'visible';
+ $('obNext').textContent=obStep===6?'Crea il mio spazio':'Continua';
+ $('obProgress').style.width=((obStep+1)/7*100)+'%';
+ $('obCount').textContent=(obStep+1)+' di 7';
+ if(n===1&&obStep===6)finishOnboarding();
+}
+function finishOnboarding(){
+ data.name=$('obName').value.trim();
+ data.profile={life:$('obLife').value,priorities:choices('priorities'),wake:$('obWake').value,sleep:$('obSleep').value,time:+$('obTime').value,structure:$('obStructure').value,difficulties:choices('difficulties'),subjects:$('obSubjects').value.split(',').map(x=>x.trim()).filter(Boolean),studyTime:$('obStudy').value,studyWhen:$('obStudyTime').value,beauty:choices('beauty'),suggest:$('obSuggest').value,miss:$('obMiss').value,tone:$('obTone').value};
+ if(!data.morning.length)data.morning=[{id:uid(),name:'Sveglia e preparazione',time:data.profile.wake,days:[1,2,3,4,5,6,0],doneDates:[]},{id:uid(),name:'Skincare mattutina',time:'07:15',days:[1,2,3,4,5,6,0],doneDates:[]},{id:uid(),name:'Colazione e organizzazione',time:'07:30',days:[1,2,3,4,5,6,0],doneDates:[]}];
+ if(!data.evening.length)data.evening=[{id:uid(),name:'Prepara ciò che ti serve domani',time:'21:00',days:[1,2,3,4,5,6,0],doneDates:[]},{id:uid(),name:'Skincare serale',time:'21:15',days:[1,2,3,4,5,6,0],doneDates:[]},{id:uid(),name:'Momento di relax',time:'21:30',days:[1,2,3,4,5,6,0],doneDates:[]}];
+ data.profile.onboarded=true;persist();$('onboarding').style.display='none';toast('Il tuo spazio è pronto. Benvenuta!');
+}
+function startOnboarding(){$('onboarding').style.display='block';$('obBack').style.visibility='hidden'}
+function taskForToday(){return data.tasks.filter(x=>x.date===today())}
+function addTask(date=today()){
+ let name=prompt('Come si chiama l’attività?');if(!name)return;
+ let category=prompt('Categoria: personale, studio, beauty, routine o altro','personale')||'personale';
+ let time=prompt('Orario (facoltativo, es. 16:00)','')||'';
+ data.tasks.push({id:uid(),name,category,date,time,done:false});persist();
+}
+function addTaskForDate(){addTask($('calendarDate').value||today())}
+function addRoutine(type){
+ let name=prompt('Nome dell’attività');if(!name)return;
+ let time=prompt('Orario (facoltativo)','')||'';
+ let days=prompt('Giorni: 1 lun, 2 mar, 3 mer, 4 gio, 5 ven, 6 sab, 0 dom. Separali con virgole','1,2,3,4,5,6,0');
+ data[type].push({id:uid(),name,time,days:days.split(',').map(Number).filter(x=>x>=0&&x<=6),doneDates:[]});persist();
+}
+function addHabit(){let name=prompt('Quale abitudine vuoi monitorare?');if(name)data.habits.push({id:uid(),name,doneDates:[]}),persist()}
+function addGoal(){
+ let name=prompt('Qual è il tuo obiettivo?');if(!name)return;
+ let due=prompt('Entro quando? (AAAA-MM-GG, facoltativo)','')||'';
+ let ms=prompt('Inserisci i piccoli traguardi separati da virgole','Primo passo,Secondo passo,Completamento')||'Primo passo,Secondo passo,Completamento';
+ data.goals.push({id:uid(),name,due,milestones:ms.split(',').map(x=>({name:x.trim(),done:false})),created:today()});persist();
+}
+function addBeauty(){
+ let name=prompt('Attività beauty o self-care');if(!name)return;
+ let date=prompt('Data (AAAA-MM-GG)',today())||today();
+ let category=prompt('Categoria: skincare, capelli, corpo, unghie, makeup, appuntamento, relax','skincare')||'self-care';
+ data.beauty.push({id:uid(),name,date,category,done:false});persist();
+}
+function addProduct(){
+ let name=prompt('Nome del prodotto');if(!name)return;
+ let category=prompt('Categoria','Skincare')||'Altro';
+ let note=prompt('Note, data di acquisto o scadenza (facoltativo)','')||'';
+ data.products.push({id:uid(),name,category,note});persist();
+}
+function addStudy(){
+ let name=prompt('Materia o attività');if(!name)return;
+ let date=prompt('Scadenza o data (AAAA-MM-GG)',today())||today();
+ let kind=prompt('Tipo: compito, verifica, ripasso, progetto','compito')||'compito';
+ data.study.push({id:uid(),name,date,kind,done:false});persist();
+}
+function addChallenge(){
+ let name=prompt('Nome della sfida');if(!name)return;
+ let days=Number(prompt('Durata in giorni','7'))||7;
+ data.challenges.push({id:uid(),name,days,start:today(),checks:[]});persist();
+}
+function toggleDate(arr,id,field='doneDates'){
+ let x=arr.find(a=>a.id===id);if(!x)return;
+ let list=x[field]||[];x[field]=list.includes(today())?list.filter(d=>d!==today()):[...list,today()];persist();
+}
+function toggleDone(arr,id){let x=arr.find(a=>a.id===id);if(x)x.done=!x.done;persist()}
+function del(arr,id){if(confirm('Vuoi eliminare questo elemento?')){let i=arr.findIndex(x=>x.id===id);if(i>=0)arr.splice(i,1);persist()}}
+function renderList(arr,container,mode='done'){
+ let el=$(container);if(!el)return;
+ if(!arr.length){el.innerHTML='<div class="empty">Non hai ancora aggiunto nulla.</div>';return}
+ el.innerHTML=arr.map(x=>{
+  let checked=mode==='date'?(x.doneDates||[]).includes(today()):!!x.done;
+  let action=mode==='date'?`toggleDate(data.${container==='morningList'?'morning':'evening'},'${x.id}')`:`toggleDone(data.${getArrayName(container)},'${x.id}')`;
+  let detail=[x.time,x.date,x.category,x.kind].filter(Boolean).join(' · ');
+  return `<div class="item ${checked?'done':''}"><input class="check" type="checkbox" ${checked?'checked':''} onchange="${action}"><div class="itemname">${esc(x.name)}${detail?`<div class="small">${esc(detail)}</div>`:''}</div><button class="textbtn" onclick="del(data.${getArrayName(container)},'${x.id}')">×</button></div>`;
+ }).join('');
+}
+function getArrayName(c){return ({todayTasks:'tasks',morningList:'morning',eveningList:'evening',habitList:'habits',beautyList:'beauty',productList:'products',studyList:'study',challengeList:'challenges',journalList:'journal'})[c]||'tasks'}
+function renderRoutines(type,id){
+ let el=$(id),day=new Date().getDay();
+ let list=data[type].filter(x=>!x.days||x.days.includes(day));
+ if(!list.length){el.innerHTML='<div class="empty">Nessuna attività prevista per oggi.</div>';return}
+ el.innerHTML=list.map(x=>{let done=(x.doneDates||[]).includes(today());return `<div class="item ${done?'done':''}"><input class="check" type="checkbox" ${done?'checked':''} onchange="toggleDate(data.${type},'${x.id}')"><div class="itemname">${esc(x.name)}<div class="small">${esc(x.time||'Orario flessibile')}</div></div><button class="textbtn" onclick="del(data.${type},'${x.id}')">×</button></div>`}).join('');
+}
+function renderGoals(){
+ $('goalList').innerHTML=data.goals.length?data.goals.map(g=>{let done=g.milestones.filter(m=>m.done).length,p=Math.round(done/Math.max(1,g.milestones.length)*100);return `<div class="card"><div class="sectionhead"><h3>${esc(g.name)}</h3><button class="textbtn" onclick="del(data.goals,'${g.id}')">×</button></div><div class="progress"><span style="width:${p}%"></span></div><div class="small">${p}% completato ${g.due?'· Scadenza '+esc(g.due):''}</div>${g.milestones.map((m,i)=>`<div class="item"><input class="check" type="checkbox" ${m.done?'checked':''} onchange="data.goals.find(x=>x.id==='${g.id}').milestones[${i}].done=!data.goals.find(x=>x.id==='${g.id}').milestones[${i}].done;persist()"><div class="itemname">${esc(m.name)}</div></div>`).join('')}</div>`}).join(''):'<div class="empty">Aggiungi il tuo primo obiettivo.</div>';
+}
+function renderChallenges(){
+ $('challengeList').innerHTML=data.challenges.length?data.challenges.map(c=>{let n=(c.checks||[]).length,p=Math.min(100,Math.round(n/c.days*100));return `<div class="card"><div class="sectionhead"><h3>${esc(c.name)}</h3><button class="textbtn" onclick="del(data.challenges,'${c.id}')">×</button></div><div class="progress"><span style="width:${p}%"></span></div><p class="small">${n} giorni registrati su ${c.days}</p><button class="secondary" onclick="challengeCheck('${c.id}')">Segna oggi</button></div>`}).join(''):'<div class="empty">Nessuna sfida attiva.</div>';
+}
+function challengeCheck(id){let c=data.challenges.find(x=>x.id===id);if(!c)return;c.checks=c.checks||[];if(!c.checks.includes(today()))c.checks.push(today());persist()}
+function renderCalendar(){
+ let date=$('calendarDate').value||today();
+ let tasks=data.tasks.filter(x=>x.date===date),beauty=data.beauty.filter(x=>x.date===date),study=data.study.filter(x=>x.date===date);
+ let all=[...tasks.map(x=>({...x,kind:'Attività'})),...beauty.map(x=>({...x,kind:'Beauty'})),...study.map(x=>({...x,kind:'Studio'}))];
+ $('calendarItems').innerHTML=all.length?all.map(x=>`<div class="item"><div class="itemname">${esc(x.name)}<div class="small">${x.kind}${x.time?' · '+esc(x.time):''}</div></div><span class="pill">${x.done?'Fatto':'In programma'}</span></div>`).join(''):'<div class="empty">Nessun impegno per questa data.</div>';
+}
+$('calendarDate').value=today();$('calendarDate').addEventListener('change',renderCalendar);
+function saveJournal(){
+ let text=$('journalText').value.trim();if(!text){toast('Scrivi almeno una riga');return}
+ data.journal.unshift({id:uid(),date:today(),mood:$('mood').value,text});$('journalText').value='';persist();toast('Riflessione salvata');
+}
+function renderJournal(){
+ $('journalList').innerHTML=data.journal.length?data.journal.map(j=>`<div class="item"><div class="itemname"><b>${esc(j.mood)} · ${esc(j.date)}</b><p>${esc(j.text)}</p></div><button class="textbtn" onclick="del(data.journal,'${j.id}')">×</button></div>`).join(''):'<div class="empty">Il tuo diario è ancora vuoto.</div>';
+}
+function saveWeekly(){
+ data.weekly.unshift({id:uid(),date:today(),win:$('weekWin').value,improve:$('weekImprove').value,priorities:$('weekPriorities').value});persist();toast('Weekly Reset salvato');
+}
+const resetNames=['Riordina il tuo spazio','Controlla il calendario','Organizza le priorità','Prepara la settimana di studio','Rivedi i tuoi obiettivi','Dedica un momento a te'];
+function renderReset(){
+ $('resetList').innerHTML=resetNames.map((n,i)=>`<div class="item"><input class="check" type="checkbox" ${data.resetChecks.includes(i)?'checked':''} onchange="resetCheck(${i})"><div class="itemname">${n}</div></div>`).join('');
+}
+function resetCheck(i){data.resetChecks=data.resetChecks.includes(i)?data.resetChecks.filter(x=>x!==i):[...data.resetChecks,i];persist()}
+function suggestFocus(){
+ let p=data.profile.priorities||[];let d=data.profile.difficulties||[];
+ let msg=p.length?'Questa settimana la tua attenzione è su: '+p.slice(0,2).join(' e ')+'. Scegli una piccola azione concreta.':'Scegli una sola priorità realistica per oggi.';
+ if(d.includes('Procrastinazione'))msg+=' Prova a iniziare con soli 10 minuti.';
+ $('focusText').textContent=msg;toast('Suggerimento aggiornato');
+}
+function newChallengeIdea(){
+ let ideas=['7 giorni di routine serale rilassante','Una settimana con 15 minuti al giorno dedicati alla lettura','5 giorni per organizzare i tuoi spazi','7 giorni di pause consapevoli','Una settimana per pianificare la giornata la sera prima'];
+ $('challengeIdea').textContent=ideas[Math.floor(Math.random()*ideas.length)];
+}
+function missedSuggestions(){
+ let missed=taskForToday().filter(x=>!x.done);
+ if(!missed.length)return;
+ let x=missed[0],choice=confirm('Hai ancora da completare: '+x.name+'. Vuoi riprogrammarla per domani? Premi Annulla per vedere un’alternativa.');
+ if(choice){x.date=new Date(Date.now()+86400000).toISOString().slice(0,10);persist();toast('Attività riprogrammata')}
+ else{let alt=prompt('Prova una versione più breve o un’alternativa per: '+x.name,'Dedica 10 minuti');if(alt){data.tasks.push({id:uid(),name:alt,category:x.category,date:today(),done:false});persist()}}
+}
+function saveSettings(){
+ data.name=$('profileName').value.trim()||data.name;
+ data.profile.morningMinutes=+$('morningTime').value||0;
+ data.profile.eveningMinutes=+$('eveningTime').value||0;
+ persist();toast('Impostazioni salvate');
+}
+function exportData(){
+ let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='become-her-backup.json';a.click();URL.revokeObjectURL(url);
+}
+function importData(e){
+ let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!confirm('Sostituire i dati attuali con il backup?'))return;data={...blank(),...x};persist();toast('Backup importato')}catch(err){toast('File non valido')}};r.readAsText(f);
+}
+function startTimer(){if(timer)return;timer=setInterval(()=>{seconds--;if(seconds<=0){pauseTimer();seconds=0;toast('Sessione completata!');}updateTimer()},1000)}
+function pauseTimer(){if(timer)clearInterval(timer);timer=null}
+function resetTimer(){pauseTimer();seconds=1500;updateTimer()}
+function updateTimer(){$('timerDisplay').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0')}
+function render(){
+ $('date').textContent=new Date().toLocaleDateString('it-IT',{weekday:'short',day:'numeric',month:'short'});
+ $('todayLabel').textContent=new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+ $('greeting').textContent=data.name?'Ciao, '+data.name+'.':'Benvenuta.';
+ let tasks=taskForToday(),done=tasks.filter(x=>x.done).length,p=tasks.length?Math.round(done/tasks.length*100):0;
+ $('percent').textContent=p+'%';$('progressbar').style.width=p+'%';$('count').textContent=tasks.length;
+ renderList(tasks,'todayTasks');renderRoutines('morning','morningList');renderRoutines('evening','eveningList');
+ renderList(data.habits,'habitList');renderList(data.beauty,'beautyList');renderList(data.products,'productList');
+ renderList(data.study,'studyList');renderGoals();renderChallenges();renderCalendar();renderJournal();renderReset();
+ $('routineSettings').innerHTML=`<div class="small">Mattina: ${data.profile.morningMinutes||data.profile.time||30} minuti · Sera: ${data.profile.eveningMinutes||data.profile.time||30} minuti</div>`;
+ $('profileName').value=data.name||'';$('morningTime').value=data.profile.morningMinutes||data.profile.time||30;$('eveningTime').value=data.profile.eveningMinutes||data.profile.time||30;
+}
+if(!data.onboarded)startOnboarding();
+else if(data.name)$('greeting').textContent='Ciao, '+data.name+'.';
+render();
+</script>
+</body>
+</html>
